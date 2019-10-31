@@ -1,2 +1,3 @@
 # ITMD510_NAIK
-Library Management System 
+Project_Name: Library Management System 
+Project_Member : Siddhi Naik (CWID: A20444173)
