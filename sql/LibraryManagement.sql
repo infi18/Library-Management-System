@@ -26,7 +26,12 @@ CREATE TABLE IF NOT EXISTS 510fp.snaik_reviews
     FOREIGN KEY (book_id) REFERENCES  snaik_books(book_id)  ON DELETE CASCADE
 );
 
-
+CREATE TABLE IF NOT EXISTS 510fp.snaik_books_availability
+(
+    book_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    book_title VARCHAR(50),
+    is_available ENUM('yes', 'no'));
+);
 
 insert into 510fp.snaik_users (first_name,last_name,email,password,phone,is_admin)
 values('admin','admin','admin@example.com','password','3331213344','yes');
