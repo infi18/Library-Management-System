@@ -69,6 +69,8 @@ public class BooksModel extends DBConnect{
     public void setBookId(int bookId) {
         BookId = bookId;
     }
+
+
     public List<BooksModel> viewbooks() {
 
         String query = "SELECT * FROM snaik_books;";
@@ -94,7 +96,7 @@ public class BooksModel extends DBConnect{
 
     public List<BooksModel> searchbooks() {
 
-        String query = "SELECT * FROM snaik_books WHERE book_id = ?, book_title=?, book_author=?, book_isbn=?, book_year=?;";
+        String query = "SELECT * FROM snaik_books WHERE book_id = ? or book_title=? or book_author=? or book_isbn=? or book_year=?;";
         try (PreparedStatement stmt = conn.getConnection().prepareStatement(query)) {
             List<BooksModel> BooksModelList = new ArrayList<>();
             ResultSet rs = stmt.executeQuery();
@@ -115,7 +117,7 @@ public class BooksModel extends DBConnect{
     }
 
     public Boolean AddBooks(BooksModel model) {
-        String state = "Insert INTO snaik_book(book_id,book_title,book_author,book_isbn,book_year) Values(?,?,?,?,?);";
+        String state = "Insert INTO snaik_books(book_id,book_title,book_author,book_isbn,book_year) Values(?,?,?,?,?);";
         try {
             sql = conn.getConnection().prepareStatement(state);
             sql.setInt(1, model.getBookId());
@@ -147,4 +149,22 @@ public class BooksModel extends DBConnect{
         return false;
     }
 
+
+    public Boolean UpdateBooks(BooksModel model) {
+        String state = "UPDATE snaik_books SET book_title=?,book_author=?,book_isbn=?,book_year=? WHERE book_id=?; ";
+        try {
+            sql = conn.getConnection().prepareStatement(state);
+            sql.setInt(1, model.getBookId());
+            sql.setString(2, model.getBookTitle());
+            sql.setString(3, model.getBookAuthor());
+            sql.setString(4, model.getBookISBN());
+            sql.setInt(5, model.getBookYear());
+            sql.executeUpdate();
+            conn.getConnection().close();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
