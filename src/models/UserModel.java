@@ -1,6 +1,7 @@
 package models;
 
 import Dao.DBConnect;
+import com.jfoenix.controls.JFXButton;
 import com.mysql.cj.jdbc.exceptions.SQLError;
 
 import java.sql.PreparedStatement;
@@ -21,10 +22,14 @@ public class UserModel extends DBConnect {
     private String phone;
     private String password;
     private Boolean admin;
-    DBConnect conn = null;
+    private JFXButton details;
 
-    public UserModel() {
-        conn = new DBConnect();
+    public JFXButton getDetails() {
+        return details;
+    }
+
+    public void setDetails(JFXButton details) {
+        this.details = details;
     }
 
     public int getId() {
@@ -102,8 +107,10 @@ public class UserModel extends DBConnect {
                 setEmailId(rs.getString("email"));
                 setAdmin(rs.getString("is_admin").equalsIgnoreCase("yes"));
                 setPhone(rs.getString("phone"));
+                setPassword(rs.getString("password"));
                 return true;
             }
+//            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -127,6 +134,7 @@ public class UserModel extends DBConnect {
                 user.setEmailId(rs.getString("email"));
                 user.setAdmin(rs.getString("is_admin").equalsIgnoreCase("yes"));
                 user.setPhone(rs.getString("phone"));
+                user.setPassword(rs.getString("password"));
                 return user;
             }
         } catch (SQLException e) {
@@ -152,6 +160,7 @@ public class UserModel extends DBConnect {
                 user.setEmailId(rs.getString("email"));
                 user.setAdmin(rs.getString("is_admin").equalsIgnoreCase("yes"));
                 user.setPhone(rs.getString("phone"));
+                user.setPassword(rs.getString("password"));
                 return user;
             }
         } catch (SQLException e) {
@@ -159,12 +168,13 @@ public class UserModel extends DBConnect {
         }
         return null;
     }
+
     /**
      * @return
      */
     public List<UserModel> getAllUsers() {
         String query = "SELECT * FROM snaik_users;";
-        try (PreparedStatement stmt = conn.getConnection().prepareStatement(query)) {
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
             List<UserModel> userModelList = new ArrayList<>();
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -173,7 +183,8 @@ public class UserModel extends DBConnect {
                 user.setFirstName(rs.getString("first_name"));
                 user.setLastName(rs.getString("last_name"));
                 user.setEmailId(rs.getString("email"));
-                user.setEmailId(rs.getString("phone"));
+                user.setPassword(rs.getString("password"));
+                user.setPhone(rs.getString("phone"));
                 user.setAdmin(rs.getString("is_admin").equalsIgnoreCase("yes"));
                 userModelList.add(user);
             }
@@ -187,16 +198,34 @@ public class UserModel extends DBConnect {
     /**
      * @return
      */
-    public Boolean addUser(String firstName, String lastName, String emailId, String phone, String password) {
-        String state = "Insert INTO snaik_users(first_name,last_name,email,password,phone,is_admin) Values(?,?,?,?,?,'no');";
-        try (PreparedStatement sql = conn.getConnection().prepareStatement(state)) {
+    public Boolean addUser(String firstName, String lastName, String emailId, String phone, String password, Boolean isAdmin) {
+        String state = "Insert INTO snaik_users(first_name,last_name,email,password,phone,is_admin) Values(?,?,?,?,?,?);";
+        try (PreparedStatement sql = connection.prepareStatement(state)) {
             sql.setString(1, firstName);
             sql.setString(2, lastName);
             sql.setString(3, emailId);
             sql.setString(4, password);
             sql.setString(5, phone);
+            sql.setString(6, isAdmin.compareTo(Boolean.TRUE) == 0 ? "yes" : "no");
             sql.executeUpdate();
-            conn.getConnection().close();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public Boolean updateUser(Integer userId, String firstName, String lastName, String emailId, String phone, String password, Boolean isAdmin) {
+        String state = "UPDATE snaik_users SET first_name=?,last_name=?,email=?,password=?,phone=?,is_admin=? WHERE user_id=?;";
+        try (PreparedStatement sql = connection.prepareStatement(state)) {
+            sql.setString(1, firstName);
+            sql.setString(2, lastName);
+            sql.setString(3, emailId);
+            sql.setString(4, password);
+            sql.setString(5, phone);
+            sql.setString(6, isAdmin.compareTo(Boolean.TRUE) == 0 ? "yes" : "no");
+            sql.setInt(7, userId);
+            sql.executeUpdate();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -206,10 +235,9 @@ public class UserModel extends DBConnect {
 
     public Boolean deleteUser(int userId) {
         String state = "Delete from snaik_users where user_id=?;";
-        try (PreparedStatement sql = conn.getConnection().prepareStatement(state)) {
+        try (PreparedStatement sql = connection.prepareStatement(state)) {
             sql.setInt(1, userId);
             sql.executeUpdate();
-            conn.getConnection().close();
             return true;
 
         } catch (SQLException e) {

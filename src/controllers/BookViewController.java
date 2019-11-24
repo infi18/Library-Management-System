@@ -139,7 +139,11 @@ public class BookViewController implements Initializable, ControlledScreen {
     }
 
     public void viewUsers() {
-
+        searchField.clear();
+        UserViewController.setUserId(userId);
+        controller.loadScreen(LibrarySystem.screen5ID, LibrarySystem.screen5File);
+        controller.unloadScreen(LibrarySystem.screen7ID);
+        controller.setScreen(LibrarySystem.screen5ID);
     }
 
     public void clear() {

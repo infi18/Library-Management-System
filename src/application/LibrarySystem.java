@@ -1,7 +1,7 @@
 /**
  * <h1>Library Management System</h1>
  *
- * @author Siddhi  Naik
+ * @author Siddhi Naik
  * @since 2019-11-16
  */
 package application;

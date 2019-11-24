@@ -18,21 +18,27 @@
                   <Font name="Gill Sans MT" size="45.0" />
                </font>
             </Label>
-            <JFXButton buttonType="RAISED" layoutX="989.0" layoutY="14.0" onAction="#Logout" prefHeight="59.0" prefWidth="145.0" ripplerFill="#111010" style="-fx-background-color: #09ba19;" text="Logout" />
-            <TableView fx:id="tblview" layoutX="101.0" layoutY="98.0" prefHeight="467.0" prefWidth="932.0">
+            <JFXButton buttonType="RAISED" layoutX="989.0" layoutY="14.0" onAction="#logout" prefHeight="59.0" prefWidth="145.0" ripplerFill="#111010" style="-fx-background-color: #09ba19;" text="Logout" />
+            <TableView fx:id="userView" layoutX="18.0" layoutY="98.0" prefHeight="541.0" prefWidth="1119.0">
               <columns>
-                <TableColumn fx:id="mv_name" prefWidth="179.66668701171875" text="First Name" />
-                  <TableColumn fx:id="mv_rating" minWidth="0.0" prefWidth="224.0" text="Last Name" />
-                  <TableColumn fx:id="shw_date" minWidth="0.0" prefWidth="185.66668701171875" text="Email ID" />
-                  <TableColumn fx:id="shw_time" prefWidth="187.3333740234375" text="Password" />
-                  <TableColumn fx:id="shw_venue" prefWidth="153.0" text="Phone Number" />
+                <TableColumn fx:id="firstName" prefWidth="205.0" text="First Name" />
+                  <TableColumn fx:id="lastName" minWidth="0.0" prefWidth="199.0" text="Last Name" />
+                  <TableColumn fx:id="email" minWidth="0.0" prefWidth="202.0" text="Email ID" />
+                  <TableColumn fx:id="password" prefWidth="184.0" text="Password" />
+                  <TableColumn fx:id="phone" prefWidth="184.0" text="Phone Number" />
+                  <TableColumn fx:id="details" prefWidth="144.0" text="Details" />
               </columns>
             </TableView>
-            <JFXButton fx:id="loadDetaisl" buttonType="RAISED" layoutX="121.0" layoutY="578.0" onAction="#Load" prefHeight="59.0" prefWidth="156.0" ripplerFill="#111010" style="-fx-background-color: #09ba19;" text="Add User" />
-            <JFXButton fx:id="nextbtn" buttonType="RAISED" layoutX="868.0" layoutY="577.0" onAction="#gotoNext" prefHeight="59.0" prefWidth="156.0" ripplerFill="#111010" style="-fx-background-color: #09ba19;" text="View Reviews" />
-            <JFXButton buttonType="RAISED" layoutX="77.0" layoutY="16.0" onAction="#goBack" prefHeight="59.0" prefWidth="145.0" ripplerFill="#111010" style="-fx-background-color: #09ba19;" text="goBack" />
-            <JFXButton fx:id="loadDetaisl1" buttonType="RAISED" layoutX="392.0" layoutY="577.0" onAction="#LoadTickets" prefHeight="59.0" prefWidth="145.0" ripplerFill="#111010" style="-fx-background-color: #09ba19;" text="Search User" />
-            <JFXTextField focusColor="#49a840" layoutX="580.0" layoutY="585.0" prefHeight="46.0" prefWidth="166.0" promptText="Search Users" />
+            <JFXButton fx:id="loadDetaisl" buttonType="RAISED" layoutX="18.0" layoutY="663.0" onAction="#addUser" prefHeight="59.0" prefWidth="156.0" ripplerFill="#111010" style="-fx-background-color: #09ba19;" text="Add User" />
+            <JFXButton buttonType="RAISED" layoutX="77.0" layoutY="16.0" onAction="#goBack" prefHeight="59.0" prefWidth="145.0" ripplerFill="#111010" style="-fx-background-color: #09ba19;" text="Back" />
+            <JFXButton fx:id="loadDetaisl1" buttonType="RAISED" layoutX="222.0" layoutY="663.0" onAction="#searchUser" prefHeight="59.0" prefWidth="145.0" ripplerFill="#111010" style="-fx-background-color: #09ba19;" text="Search User" />
+            <JFXTextField fx:id="searchText" focusColor="#49a840" layoutX="402.0" layoutY="670.0" prefHeight="46.0" prefWidth="166.0" promptText="Search Users" />
+            <Label fx:id="lblError" layoutX="592.0" layoutY="678.0" prefHeight="30.0" prefWidth="237.0" textFill="#f50101">
+               <font>
+                  <Font name="Helvetica" size="13.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="loadDetaisl11" buttonType="RAISED" layoutX="890.0" layoutY="663.0" onAction="#loadUsers" prefHeight="59.0" prefWidth="145.0" ripplerFill="#111010" style="-fx-background-color: #09ba19;" text="Refresh" />
          </children>
       </Pane>
    </children>

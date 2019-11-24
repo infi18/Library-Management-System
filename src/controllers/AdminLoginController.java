@@ -97,4 +97,3 @@ public class AdminLoginController implements Initializable, ControlledScreen {
         controller.setScreen(LibrarySystem.screen1ID);
     }
 }
-

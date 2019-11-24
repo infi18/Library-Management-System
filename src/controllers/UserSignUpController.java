@@ -71,7 +71,7 @@ public class UserSignUpController implements Initializable, ControlledScreen {
             this.lblError.setText("User already exists! Try logging In");
             return;
         }
-        Boolean result = model.addUser(this.firstName.getText(), this.lastName.getText(), this.emailId.getText(), this.phone.getText(), this.password.getText());
+        Boolean result = model.addUser(this.firstName.getText(), this.lastName.getText(), this.emailId.getText(), this.phone.getText(), this.password.getText(),Boolean.FALSE);
         if (!result) {
             this.lblError.setText("There is an error please try again later");
             return;
