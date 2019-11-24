@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" style="-fx-background-image: url(&quot;imgs/background2.jpg&quot;);" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserController">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" style="-fx-background-image: url(&quot;imgs/background2.jpg&quot;);" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController">
    <children>
       <Pane layoutX="20.0" layoutY="20.0" prefHeight="760.0" prefWidth="1160.0" style="-fx-background-color: #ffffff;">
          <children>
@@ -35,15 +35,15 @@
               </rowConstraints>
                <children>
                   <Label alignment="CENTER" prefHeight="37.0" prefWidth="118.0" text="First Name " />
-                  <JFXTextField fx:id="movie_nm" focusColor="#09b6bc" promptText="Enter First Name of User" GridPane.columnIndex="1" />
+                  <JFXTextField fx:id="movie_nm" focusColor="#09ba27" promptText="Enter First Name of User" GridPane.columnIndex="1" />
                   <Label alignment="CENTER" layoutX="10.0" layoutY="39.0" prefHeight="37.0" prefWidth="118.0" text="Last Name " GridPane.rowIndex="1" />
                   <Label alignment="CENTER" layoutX="10.0" layoutY="132.0" prefHeight="46.0" prefWidth="127.0" text="Email ID" GridPane.rowIndex="2" />
-                  <JFXTextField fx:id="movie_rt" focusColor="#09b6bc" layoutX="153.0" layoutY="39.0" promptText="Enter Last Name of User" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <JFXTextField prefHeight="42.0" prefWidth="211.0" promptText="Enter Password" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <JFXTextField fx:id="movie_rt" focusColor="#09ba27" layoutX="153.0" layoutY="39.0" promptText="Enter Last Name of User" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <JFXTextField focusColor="#09ba27" prefHeight="42.0" prefWidth="211.0" promptText="Enter Password" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <Label prefHeight="40.0" prefWidth="103.0" text="          Password" GridPane.rowIndex="3" />
-                  <JFXTextField promptText="Enter Email ID of the User" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <JFXTextField focusColor="#09ba27" promptText="Enter Email ID of the User" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Label prefHeight="17.0" prefWidth="117.0" text="       Phone Number" GridPane.rowIndex="4" />
-                  <JFXTextField promptText="Enter Phone Number of User" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <JFXTextField focusColor="#09ba27" promptText="Enter Phone Number of User" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                </children>
             </GridPane>
             <JFXButton buttonType="RAISED" layoutX="815.0" layoutY="149.0" onAction="#Add_movie" prefHeight="59.0" prefWidth="145.0" ripplerFill="#111010" style="-fx-background-color: #09ba25;" text="Add User" />

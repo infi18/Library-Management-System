@@ -9,33 +9,32 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * 
  * @author Siddhi Naik
  * @since 2016-12-02
- *
+ * <p>
  * DAO for alerts that will occur while in the method.
- * Every Method will have different alert upon situation. 
+ * Every Method will have different alert upon situation.
  */
 public class AlertDao {
-	public static void Display(String Title,String Message){
-		Stage win= new Stage();
-		win.initModality(Modality.APPLICATION_MODAL);
-		win.setTitle(Title);
-		win.setMinWidth(350);
-		win.setMinHeight(250);
-		Label labl=new Label();
-		labl.setText(Message);
-		Button Btncls=new Button("OK");
-		Btncls.setOnAction(e->win.close());
-		
-		VBox lay=new VBox(10);
-		lay.getChildren().addAll(labl,Btncls);
-		lay.setAlignment(Pos.CENTER);
-		
-		Scene scene=new Scene(lay);
-		win.setScene(scene);
-		win.showAndWait();
-		
-	}
+    public static void Display(String Title, String Message) {
+        Stage win = new Stage();
+        win.initModality(Modality.APPLICATION_MODAL);
+        win.setTitle(Title);
+        win.setMinWidth(350);
+        win.setMinHeight(250);
+        Label labl = new Label();
+        labl.setText(Message);
+        Button Btncls = new Button("OK");
+        Btncls.setOnAction(e -> win.close());
+
+        VBox lay = new VBox(10);
+        lay.getChildren().addAll(labl, Btncls);
+        lay.setAlignment(Pos.CENTER);
+
+        Scene scene = new Scene(lay);
+        win.setScene(scene);
+        win.showAndWait();
+
+    }
 
 }

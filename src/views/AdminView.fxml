@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -8,16 +9,12 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="400.0" maxWidth="600.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: bbbdbd;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
-fx:controller="controllers.AdminController">
+<AnchorPane maxHeight="400.0" maxWidth="600.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: bbbdbd;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminController">
    <children>
-      <Label layoutX="42.0" layoutY="54.0" text="Admin Panel" textFill="#194321">
+      <Label layoutX="27.0" layoutY="14.0" text="Admin Panel" textFill="#194321">
          <font>
-            <Font size="17.0" />
+            <Font name="Times New Roman" size="23.0" />
          </font></Label>
-      <Button layoutX="37.0" layoutY="114.0" mnemonicParsing="false" onAction="#viewAccounts" text="View Accounts" />
-      <Button layoutX="36.0" layoutY="173.0" mnemonicParsing="false" onAction="#updateRec" text="Update Record" />
-      <Button layoutX="37.0" layoutY="230.0" mnemonicParsing="false" onAction="#deleteRec" text="Delete Record" />
       <Pane fx:id="pane1" layoutX="176.0" layoutY="65.0" prefHeight="282.0" prefWidth="375.0" style="-fx-border-color: Black; -fx-border-width: 1;" visible="false">
          <effect>
             <Glow level="0.0" />
@@ -42,7 +39,6 @@ fx:controller="controllers.AdminController">
             <Label layoutX="14.0" layoutY="176.0" text="Record Deleted?" textFill="#803131" />
          </children>
       </Pane>
-      <Button layoutX="36.0" layoutY="283.0" mnemonicParsing="false" onAction="#addBankRec" text="Add Bank Affiliate" />
       <Pane fx:id="pane3" layoutX="176.0" layoutY="65.0" prefHeight="282.0" prefWidth="375.0" style="-fx-border-color: #bbccff; -fx-border-width: 1;">
          <effect>
             <Glow level="0.0" />
@@ -57,5 +53,50 @@ fx:controller="controllers.AdminController">
             <Label layoutX="21.0" layoutY="119.0" text="Address" />
          </children>
       </Pane>
+      <JFXButton layoutX="17.0" layoutY="65.0" onAction="#viewAccounts" prefHeight="26.0" prefWidth="134.0" text="View Users">
+         <font>
+            <Font name="Times New Roman" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="490.0" layoutY="15.0" onAction="#logout" prefHeight="25.0" prefWidth="96.0" text="Logout">
+         <font>
+            <Font name="Times New Roman" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="24.0" layoutY="181.0" onAction="#updateRec" prefHeight="26.0" prefWidth="121.0" text="Update Books">
+         <font>
+            <Font name="Times New Roman" size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="45.0" layoutY="93.0" prefHeight="30.0" prefWidth="84.0" text="Add User">
+         <font>
+            <Font name="Times New Roman" size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="42.0" layoutY="123.0" text="Delete Book">
+         <font>
+            <Font name="Times New Roman" size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="43.0" layoutY="155.0" text="View Books">
+         <font>
+            <Font name="Times New Roman" size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="40.0" layoutY="207.0" text="Delete Books">
+         <font>
+            <Font name="Times New Roman" size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="36.0" layoutY="261.0" text="View Reviews">
+         <font>
+            <Font name="Times New Roman" size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="29.0" layoutY="287.0" prefHeight="26.0" prefWidth="111.0" text="Delete Reviews">
+         <font>
+            <Font name="Times New Roman" size="14.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>

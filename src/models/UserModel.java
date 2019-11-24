@@ -1,6 +1,7 @@
 package models;
 
 import Dao.DBConnect;
+import com.mysql.cj.jdbc.exceptions.SQLError;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,7 +22,6 @@ public class UserModel extends DBConnect {
     private String password;
     private Boolean admin;
     DBConnect conn = null;
-    private PreparedStatement sql = null;
 
     public UserModel() {
         conn = new DBConnect();
@@ -113,11 +113,11 @@ public class UserModel extends DBConnect {
     /**
      * @return
      */
-    public UserModel getUser(int id) {
+    public UserModel getUser(String id) {
 
         String query = "SELECT * FROM snaik_users WHERE email = ?;";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setInt(1, id);
+            stmt.setString(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 UserModel user = new UserModel();
@@ -138,8 +138,31 @@ public class UserModel extends DBConnect {
     /**
      * @return
      */
-    public List<UserModel> getUsers() {
+    public UserModel getUserForId(int id) {
 
+        String query = "SELECT * FROM snaik_users WHERE user_id = ?;";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                UserModel user = new UserModel();
+                user.setId(rs.getInt("user_id"));
+                user.setFirstName(rs.getString("first_name"));
+                user.setLastName(rs.getString("last_name"));
+                user.setEmailId(rs.getString("email"));
+                user.setAdmin(rs.getString("is_admin").equalsIgnoreCase("yes"));
+                user.setPhone(rs.getString("phone"));
+                return user;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    /**
+     * @return
+     */
+    public List<UserModel> getAllUsers() {
         String query = "SELECT * FROM snaik_users;";
         try (PreparedStatement stmt = conn.getConnection().prepareStatement(query)) {
             List<UserModel> userModelList = new ArrayList<>();
@@ -162,17 +185,16 @@ public class UserModel extends DBConnect {
     }
 
     /**
-     * @param model
      * @return
      */
-    public Boolean AddUser(UserModel model) {
-        String state = "Insert INTO snaik_users(Fname,Lname,email,password,isAdmin) Values(?,?,?,?,'no');";
-        try {
-            sql = conn.getConnection().prepareStatement(state);
-            sql.setString(1, model.getFirstName());
-            sql.setString(2, model.getLastName());
-            sql.setString(3, model.emailId);
+    public Boolean addUser(String firstName, String lastName, String emailId, String phone, String password) {
+        String state = "Insert INTO snaik_users(first_name,last_name,email,password,phone,is_admin) Values(?,?,?,?,?,'no');";
+        try (PreparedStatement sql = conn.getConnection().prepareStatement(state)) {
+            sql.setString(1, firstName);
+            sql.setString(2, lastName);
+            sql.setString(3, emailId);
             sql.setString(4, password);
+            sql.setString(5, phone);
             sql.executeUpdate();
             conn.getConnection().close();
             return true;
@@ -182,11 +204,10 @@ public class UserModel extends DBConnect {
         return false;
     }
 
-    public Boolean DeleteUser(UserModel model) {
-        String state = "Delete from snaik_users where id=?;";
-        try {
-            sql = conn.getConnection().prepareStatement(state);
-            sql.setInt(1, model.getId());
+    public Boolean deleteUser(int userId) {
+        String state = "Delete from snaik_users where user_id=?;";
+        try (PreparedStatement sql = conn.getConnection().prepareStatement(state)) {
+            sql.setInt(1, userId);
             sql.executeUpdate();
             conn.getConnection().close();
             return true;

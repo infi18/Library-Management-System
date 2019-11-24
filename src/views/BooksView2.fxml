@@ -2,9 +2,9 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TreeTableColumn?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -19,21 +19,21 @@
                </font>
             </Label>
             <JFXButton buttonType="RAISED" layoutX="989.0" layoutY="14.0" onAction="#logout" prefHeight="59.0" prefWidth="145.0" ripplerFill="#111010" style="-fx-background-color: #09ba19;" text="Logout" />
-            <TableView fx:id="booksView" layoutX="32.0" layoutY="98.0" prefHeight="515.0" prefWidth="1111.0">
-              <columns>
-                <TableColumn fx:id="bookId" prefWidth="62.0" text="Id" />
-                  <TableColumn fx:id="bookTitle" minWidth="0.0" prefWidth="239.0" text="Title" />
-                  <TableColumn fx:id="bookAuthor" minWidth="0.0" prefWidth="218.0" text="Author" />
-                  <TableColumn fx:id="bookYear" prefWidth="109.0" text="Year" />
-                  <TableColumn fx:id="bookISBN" prefWidth="236.0" text="ISBN" />
-                  <TableColumn fx:id="bookQuantity" prefWidth="128.0" text="Quantity" />
-                  <TableColumn fx:id="bookDetails" prefWidth="118.0" text="Details" />
-              </columns>
-            </TableView>
             <JFXButton fx:id="addBook" buttonType="RAISED" layoutX="101.0" layoutY="632.0" onAction="#addBook" prefHeight="59.0" prefWidth="156.0" ripplerFill="#111010" style="-fx-background-color: #09ba19;" text="Add Book" />
-            <JFXButton fx:id="btnViewUsers" buttonType="RAISED" layoutX="931.0" layoutY="633.0" onAction="#viewUsers" prefHeight="59.0" prefWidth="156.0" ripplerFill="#111010" style="-fx-background-color: #09ba19;" text="View Users" />
+            <JFXButton fx:id="viewUsers" buttonType="RAISED" layoutX="931.0" layoutY="633.0" onAction="#viewUsers" prefHeight="59.0" prefWidth="156.0" ripplerFill="#111010" style="-fx-background-color: #09ba19;" text="View Users" />
             <JFXButton fx:id="searchBook" buttonType="RAISED" layoutX="320.0" layoutY="633.0" onAction="#searchBook" prefHeight="59.0" prefWidth="145.0" ripplerFill="#111010" style="-fx-background-color: #09ba19;" text="Search Books" />
             <JFXTextField fx:id="searchField" focusColor="#12d01b" layoutX="507.0" layoutY="637.0" prefHeight="50.0" prefWidth="156.0" promptText="Search Books" />
+            <JFXTreeTableView layoutX="32.0" layoutY="107.0" prefHeight="496.0" prefWidth="1099.0">
+               <columns>
+                  <TreeTableColumn fx:id="bookId" prefWidth="51.0" text="Id" />
+                  <TreeTableColumn fx:id="bookTitle" prefWidth="295.0" text="Title" />
+                  <TreeTableColumn fx:id="bookAuthor" prefWidth="205.0" text="Author" />
+                  <TreeTableColumn fx:id="bookYear" prefWidth="117.0" text="Year" />
+                  <TreeTableColumn fx:id="bookISBN" prefWidth="204.0" text="ISBN" />
+                  <TreeTableColumn fx:id="bookQuantity" prefWidth="106.0" text="Quantity" />
+                  <TreeTableColumn fx:id="bookDetails" prefWidth="120.0" text="Details" />
+               </columns>
+            </JFXTreeTableView>
          </children>
       </Pane>
    </children>

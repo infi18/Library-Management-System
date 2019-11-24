@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" style="-fx-background-image: url(&quot;imgs/background2.jpg&quot;);" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserController">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" style="-fx-background-image: url(&quot;imgs/background2.jpg&quot;);" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserViewController">
    <children>
       <Pane layoutX="20.0" layoutY="20.0" prefHeight="760.0" prefWidth="1160.0" style="-fx-background-color: #ffffff;">
          <children>
@@ -29,15 +29,10 @@
               </columns>
             </TableView>
             <JFXButton fx:id="loadDetaisl" buttonType="RAISED" layoutX="121.0" layoutY="578.0" onAction="#Load" prefHeight="59.0" prefWidth="156.0" ripplerFill="#111010" style="-fx-background-color: #09ba19;" text="Add User" />
-            <JFXComboBox fx:id="cmbbox" layoutX="593.0" layoutY="585.0" onAction="#setLabel" prefHeight="43.0" prefWidth="175.0" promptText="Search for Users" />
             <JFXButton fx:id="nextbtn" buttonType="RAISED" layoutX="868.0" layoutY="577.0" onAction="#gotoNext" prefHeight="59.0" prefWidth="156.0" ripplerFill="#111010" style="-fx-background-color: #09ba19;" text="View Reviews" />
             <JFXButton buttonType="RAISED" layoutX="77.0" layoutY="16.0" onAction="#goBack" prefHeight="59.0" prefWidth="145.0" ripplerFill="#111010" style="-fx-background-color: #09ba19;" text="goBack" />
             <JFXButton fx:id="loadDetaisl1" buttonType="RAISED" layoutX="392.0" layoutY="577.0" onAction="#LoadTickets" prefHeight="59.0" prefWidth="145.0" ripplerFill="#111010" style="-fx-background-color: #09ba19;" text="Search User" />
-            <Label fx:id="cost_label" alignment="CENTER" layoutX="580.0" layoutY="586.0" prefHeight="43.0" prefWidth="239.0" style="-fx-background-color: #09;">
-               <font>
-                  <Font name="Berlin Sans FB" size="22.0" />
-               </font>
-            </Label>
+            <JFXTextField focusColor="#49a840" layoutX="580.0" layoutY="585.0" prefHeight="46.0" prefWidth="166.0" promptText="Search Users" />
          </children>
       </Pane>
    </children>

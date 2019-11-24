@@ -1,7 +1,7 @@
 /**
  * <h1>Library Management System</h1>
  *
- * @author Siddhi Vasudeo Naik
+ * @author Siddhi  Naik
  * @since 2019-11-16
  */
 package application;
@@ -24,13 +24,21 @@ public class LibrarySystem extends Application {
      *
      */
     public static String screen1ID = "Landing Page";
-    public static String screen1File = "/views/LoginView.fxml";
-    public static String screen2ID = "Client View";
-    public static String screen2File = "/views/ClientView.fxml";
+    public static String screen1File = "/views/LandingPage.fxml";
+    public static String screen2ID = "User Login";
+    public static String screen2File = "/views/UserLogin.fxml";
     public static String screen3ID = "User SignUp";
     public static String screen3File = "/views/UserSignup.fxml";
-    public static String screen4ID = "Admin View";
-    public static String screen4File = "/views/AdminView.fxml";
+    public static String screen4ID = "Admin Login";
+    public static String screen4File = "/views/AdminLogin.fxml";
+    public static String screen5ID = " User View";
+    public static String screen5File = "/views/UserView.fxml";
+    public static String screen6ID = "User Details";
+    public static String screen6File = "/views/UserDetails.fxml";
+    public static String screen7ID = "Books View";
+    public static String screen7File = "/views/BooksView.fxml";
+    public static String screen8ID = "Book Details";
+    public static String screen8File = "/views/BookDetails.fxml";
 
     /**
      * @param primaryStage used to set the main stage and hence

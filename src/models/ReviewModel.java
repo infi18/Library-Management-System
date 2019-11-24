@@ -1,4 +1,5 @@
 package models;
+
 import Dao.DBConnect;
 
 import java.sql.PreparedStatement;
@@ -7,13 +8,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReviewModel {
+public class ReviewModel extends DBConnect {
 
     private int Review_id;
     private String BookReview;
     private int BookId;
     private int UserId;
+    DBConnect conn = null;
 
+    public ReviewModel() {
+        conn = new ReviewModel();
+    }
 
     public String getBookReview() {
         return BookReview;
@@ -48,17 +53,12 @@ public class ReviewModel {
     }
 
 
-    DBConnect conn = null;
-    private PreparedStatement sql = null;
-
-    public Boolean AddReview(ReviewModel model) {
-        String state = "Insert INTO snaik_reviews(review_id, book_id,user_id, review) Values(?,?,?,?);";
-        try {
-            sql = conn.getConnection().prepareStatement(state);
-            sql.setInt(1, model.getReview_id());
-            sql.setInt(2, model.getBookId());
-            sql.setInt(3, model.getUserId());
-            sql.setString(4, model.getBookReview());
+    public Boolean addReview(int bookId, int userId, String bookReview) {
+        String state = "Insert INTO snaik_reviews(book_id,user_id, review) Values(?,?,?);";
+        try (PreparedStatement sql = conn.getConnection().prepareStatement(state)) {
+            sql.setInt(1, bookId);
+            sql.setInt(2, userId);
+            sql.setString(3, bookReview);
             sql.executeUpdate();
             conn.getConnection().close();
             return true;
@@ -68,10 +68,11 @@ public class ReviewModel {
         return false;
     }
 
-    public List<ReviewModel> viewreview() {
+    public List<ReviewModel> getReviewsForBook(int bookId) {
 
-        String query = "SELECT * FROM snaik_reviews;";
-        try (PreparedStatement stmt = conn.getConnection().prepareStatement(query)) {
+        String query = "SELECT * FROM snaik_reviews where book_id =?;";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, bookId);
             List<ReviewModel> ReviewModelList = new ArrayList<>();
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -79,6 +80,7 @@ public class ReviewModel {
                 review.setReview_id(rs.getInt("review_id"));
                 review.setBookId(rs.getInt("book_id"));
                 review.setUserId(rs.getInt("user_id"));
+                review.setBookReview(rs.getString("review"));
                 ReviewModelList.add(review);
             }
             return ReviewModelList;
@@ -88,11 +90,10 @@ public class ReviewModel {
         return new ArrayList<>();
     }
 
-    public Boolean DeleteReview(ReviewModel model) {
+    public Boolean deleteReview(int reviewId) {
         String state = "Delete from snaik_reviews where review_id=?;";
-        try {
-            sql = conn.getConnection().prepareStatement(state);
-            sql.setInt(1, model.getReview_id());
+        try (PreparedStatement sql = conn.getConnection().prepareStatement(state)) {
+            sql.setInt(1, reviewId);
             sql.executeUpdate();
             conn.getConnection().close();
             return true;

@@ -7,21 +7,17 @@ import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicLong;
 
 import application.LibrarySystem;
-import application.Main;
 import interfaces.ControlledScreen;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import models.ClientModel;
 
-
+@Deprecated
 public class ClientController implements Initializable, ControlledScreen {
 
     static int userid;
