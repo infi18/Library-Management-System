@@ -1,5 +1,7 @@
 package models;
+
 import Dao.DBConnect;
+import com.jfoenix.controls.JFXButton;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,57 +9,200 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BooksModel extends DBConnect{
-    private int BookId;
-    private String BookTitle;
-    private String BookAuthor;
-    private String BookISBN;
-    private Boolean Availability;
-    DBConnect conn = null;
-    private PreparedStatement sql = null;
+public class BooksModel extends DBConnect {
+    private int bookId;
+    private String bookTitle;
+    private String bookAuthor;
+    private String bookISBN;
+    private int bookYear;
+    private int bookQuantity;
+    private JFXButton bookDetails;
 
-    public BooksModel() {
-        conn = new DBConnect();
+    public JFXButton getBookDetails() {
+        return bookDetails;
     }
 
-    public Boolean getAvailability() {
-        return Availability;
+    public void setBookDetails(JFXButton bookDetails) {
+        this.bookDetails = bookDetails;
     }
 
-    public void setAvailability(Boolean availability) {
-        Availability = availability;
+    public int getBookQuantity() {
+        return bookQuantity;
+    }
+
+    public void setBookQuantity(int bookQuantity) {
+        this.bookQuantity = bookQuantity;
     }
 
     public String getBookISBN() {
-        return BookISBN;
+        return bookISBN;
     }
 
     public void setBookISBN(String bookISBN) {
-        BookISBN = bookISBN;
+        this.bookISBN = bookISBN;
     }
 
     public String getBookAuthor() {
-        return BookAuthor;
+        return bookAuthor;
     }
 
     public void setBookAuthor(String bookAuthor) {
-        BookAuthor = bookAuthor;
+        this.bookAuthor = bookAuthor;
     }
 
     public String getBookTitle() {
-        return BookTitle;
+        return bookTitle;
     }
 
     public void setBookTitle(String bookTitle) {
-        BookTitle = bookTitle;
+        this.bookTitle = bookTitle;
     }
 
     public int getBookId() {
-        return BookId;
+        return bookId;
+    }
+
+    public int getBookYear() {
+        return bookYear;
+    }
+
+    public void setBookYear(int bookYear) {
+        this.bookYear = bookYear;
     }
 
     public void setBookId(int bookId) {
-        BookId = bookId;
+        this.bookId = bookId;
     }
 
+
+    public List<BooksModel> getAllBooks() {
+
+        String query = "SELECT * FROM snaik_books;";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            List<BooksModel> BooksModelList = new ArrayList<>();
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                BooksModel books = new BooksModel();
+                books.setBookId(rs.getInt("book_id"));
+                books.setBookAuthor(rs.getString("book_author"));
+                books.setBookTitle(rs.getString("book_title"));
+                books.setBookISBN(rs.getString("book_isbn"));
+                books.setBookYear(rs.getInt("book_year"));
+                books.setBookQuantity(rs.getInt("book_quantity"));
+                BooksModelList.add(books);
+            }
+            return BooksModelList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
+    }
+
+
+    public BooksModel getExistingBook(String isbn) {
+
+        String query = "SELECT * FROM snaik_books WHERE  book_isbn=?;";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, isbn);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                BooksModel books = new BooksModel();
+                books.setBookId(rs.getInt("book_id"));
+                books.setBookAuthor(rs.getString("book_author"));
+                books.setBookTitle(rs.getString("book_title"));
+                books.setBookISBN(rs.getString("book_isbn"));
+                books.setBookYear(rs.getInt("book_year"));
+                books.setBookQuantity(rs.getInt("book_quantity"));
+                return books;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public BooksModel getBookForId(int bookId) {
+
+        String query = "SELECT * FROM snaik_books WHERE  book_id=?;";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, bookId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                BooksModel books = new BooksModel();
+                books.setBookId(rs.getInt("book_id"));
+                books.setBookAuthor(rs.getString("book_author"));
+                books.setBookTitle(rs.getString("book_title"));
+                books.setBookISBN(rs.getString("book_isbn"));
+                books.setBookYear(rs.getInt("book_year"));
+                books.setBookQuantity(rs.getInt("book_quantity"));
+                return books;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    public Boolean addBook(String bookTitle, String author, String ISBN, int bookYear, int bookQuantity) {
+        String state = "Insert INTO snaik_books(book_title,book_author,book_isbn,book_year,book_quantity) Values(?,?,?,?,?);";
+        try (PreparedStatement sql = connection.prepareStatement(state)) {
+            sql.setString(1, bookTitle);
+            sql.setString(2, author);
+            sql.setString(3, ISBN);
+            sql.setInt(4, bookYear);
+            sql.setInt(5, bookQuantity);
+            sql.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
+    public Boolean deleteBook(int bookId) {
+        String state = "Delete from snaik_books where book_id=?;";
+        try (PreparedStatement sql = connection.prepareStatement(state)) {
+            sql.setInt(1, bookId);
+            sql.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
+    public Boolean updateBook(int bookId, String bookTitle, String author, String ISBN, int bookYear, int bookQuantity) {
+        String state = "UPDATE snaik_books SET book_title=?,book_author=?,book_isbn=?,book_year=?,book_quantity=? WHERE book_id=?; ";
+        try (PreparedStatement sql = connection.prepareStatement(state)) {
+            sql.setString(1, bookTitle);
+            sql.setString(2, author);
+            sql.setString(3, ISBN);
+            sql.setInt(4, bookYear);
+            sql.setInt(5, bookQuantity);
+            sql.setInt(6, bookId);
+            sql.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public Boolean updateBookQuantity(int bookId, int quantity) {
+        String state = "UPDATE snaik_books SET book_quantity=? WHERE book_id=?; ";
+        try (PreparedStatement sql = connection.prepareStatement(state)) {
+            sql.setInt(1, quantity);
+            sql.setInt(2, bookId);
+            sql.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
+

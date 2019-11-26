@@ -9,32 +9,39 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="Pane_Login" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-image: url(&quot;imgs/background2.jpg&quot;);" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserLoginController">
+<AnchorPane fx:id="Pane_Login" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-image: url(&quot;imgs/w0121.jpg&quot;);" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserLoginController">
    <children>
-      <Pane layoutX="300.0" layoutY="150.0" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #ffffff;">
+      <Pane layoutX="300.0" layoutY="142.0" prefHeight="508.0" prefWidth="600.0" style="-fx-background-color: #ffffff;">
          <children>
-            <JFXTextField fx:id="user_field" focusColor="#09b6bc" layoutX="124.0" layoutY="92.0" maxWidth="374.0" minWidth="237.0" prefHeight="56.0" prefWidth="374.0" promptText="Username" />
-            <JFXPasswordField fx:id="user_pass" focusColor="#09b6bc" layoutX="125.0" layoutY="160.0" maxWidth="374.0" minWidth="237.0" prefHeight="56.0" prefWidth="374.0" promptText="Password" />
-            <JFXButton fx:id="user_login" buttonType="RAISED" defaultButton="true" layoutX="94.0" layoutY="278.0" onAction="#LoginCon" prefHeight="69.0" prefWidth="153.0" ripplerFill="WHITE" style="-fx-background-color: #2196f3;" text="Login">
+            <JFXTextField fx:id="txtUsername" focusColor="#09ba18" layoutX="124.0" layoutY="148.0" maxWidth="374.0" minWidth="237.0" prefHeight="48.0" prefWidth="374.0" promptText="Username" />
+            <JFXPasswordField fx:id="txtPassword" focusColor="#09ba12" layoutX="124.0" layoutY="234.0" maxWidth="374.0" minWidth="237.0" prefHeight="48.0" prefWidth="374.0" promptText="Password" />
+            <JFXButton fx:id="user_login" buttonType="RAISED" defaultButton="true" layoutX="97.0" layoutY="313.0" onAction="#loginUser" prefHeight="69.0" prefWidth="153.0" ripplerFill="WHITE" style="-fx-background-color: #09ba15;" text="Login">
                <font>
                   <Font name="Baskerville Old Face" size="20.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="user_signup" defaultButton="true" layoutX="361.0" layoutY="278.0" onAction="#SignUpcon" prefHeight="69.0" prefWidth="153.0" style="-fx-background-color: #2196f3;" text="Sign Up">
+            <JFXButton fx:id="user_signup" defaultButton="true" layoutX="355.0" layoutY="313.0" onAction="#userSignUp" prefHeight="69.0" prefWidth="153.0" style="-fx-background-color: #09ba15;" text="Sign Up">
                <font>
                   <Font name="Baskerville Old Face" size="20.0" />
                </font>
             </JFXButton>
-            <Label alignment="CENTER" layoutX="212.0" layoutY="56.0" prefHeight="36.0" prefWidth="177.0" text="User Login" textFill="#09b6bc">
+            <Label alignment="CENTER" layoutX="212.0" layoutY="50.0" prefHeight="36.0" prefWidth="177.0" text="User Login" textFill="#09ba24">
                <font>
                   <Font name="Gill Sans MT" size="28.0" />
                </font>
             </Label>
+            <Label fx:id="lblError" layoutX="124.0" layoutY="86.0" prefHeight="28.0" prefWidth="277.0" textFill="#eb0c0c">
+               <font>
+                  <Font name="Helvetica" size="13.0" />
+               </font></Label>
          </children>
          <effect>
             <DropShadow />
          </effect>
       </Pane>
-      <JFXButton buttonType="RAISED" layoutX="50.0" layoutY="55.0" onAction="#goBack" prefHeight="59.0" prefWidth="145.0" ripplerFill="#111010" style="-fx-background-color: #1e95f1;" text="Home" />
+      <JFXButton buttonType="RAISED" layoutX="50.0" layoutY="55.0" onAction="#goHome" prefHeight="59.0" prefWidth="145.0" ripplerFill="#111010" style="-fx-background-color: #09ba15;" text="Home">
+         <font>
+            <Font name="Times New Roman" size="15.0" />
+         </font></JFXButton>
    </children>
 </AnchorPane>
