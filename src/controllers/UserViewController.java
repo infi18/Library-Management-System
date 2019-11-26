@@ -138,9 +138,9 @@ public class UserViewController implements Initializable, ControlledScreen {
         }
 
         List<UserModel> filteredList = userList.stream().filter(user -> {
-            return user.getFirstName().contains(search) ||
-                    user.getLastName().contains(search) ||
-                    user.getEmailId().contains(search);
+            return user.getFirstName().toLowerCase().contains(search.toLowerCase()) ||
+                    user.getLastName().toLowerCase().contains(search.toLowerCase()) ||
+                    user.getEmailId().toLowerCase().contains(search.toLowerCase());
         }).collect(Collectors.toList());
 
         ObservableList<UserModel> observableUsersList = FXCollections.observableArrayList();

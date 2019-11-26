@@ -10,11 +10,6 @@ public class CheckoutModel extends DBConnect {
     private int checkoutId;
     private int bookId;
     private int userId;
-    DBConnect conn = null;
-
-    public CheckoutModel() {
-        conn = new DBConnect();
-    }
 
     public int getCheckoutId() {
         return checkoutId;
@@ -40,10 +35,11 @@ public class CheckoutModel extends DBConnect {
         this.userId = userId;
     }
 
-    public CheckoutModel getCheckoutsForUser(int UserId) {
-        String query = "SELECT * FROM snaik_checkout WHERE user_id = ?;";
+    public CheckoutModel getCheckoutsForUser(int UserId, int BookId) {
+        String query = "SELECT * FROM snaik_checkout WHERE user_id = ? and book_id=?;";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, UserId);
+            stmt.setInt(2, BookId);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 CheckoutModel checkoutModel = new CheckoutModel();
@@ -59,12 +55,11 @@ public class CheckoutModel extends DBConnect {
     }
 
     public Boolean deleteCheckout(int userId, int bookId) {
-        String state = "Delete from snaik_users where user_id=? and book_id=?;";
-        try (PreparedStatement sql = conn.getConnection().prepareStatement(state)) {
+        String state = "Delete from snaik_checkout where user_id=? and book_id=?;";
+        try (PreparedStatement sql = connection.prepareStatement(state)) {
             sql.setInt(1, userId);
             sql.setInt(2, bookId);
             sql.executeUpdate();
-            conn.getConnection().close();
             return true;
 
         } catch (SQLException e) {
@@ -73,13 +68,12 @@ public class CheckoutModel extends DBConnect {
         return false;
     }
 
-    public Boolean addCheckOutRecord(int bookId, int userId) {
-        String state = "Insert INTO snaik_users(user_id,book_id) Values(?,?);";
-        try (PreparedStatement sql = conn.getConnection().prepareStatement(state)) {
+    public Boolean addCheckOutRecord(int userId, int bookId) {
+        String state = "Insert INTO snaik_checkout(user_id,book_id) Values(?,?);";
+        try (PreparedStatement sql = connection.prepareStatement(state)) {
             sql.setInt(1, bookId);
             sql.setInt(2, userId);
             sql.executeUpdate();
-            conn.getConnection().close();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();

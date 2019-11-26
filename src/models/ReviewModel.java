@@ -1,6 +1,7 @@
 package models;
 
 import Dao.DBConnect;
+import com.jfoenix.controls.JFXButton;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,10 +15,14 @@ public class ReviewModel extends DBConnect {
     private String BookReview;
     private int BookId;
     private int UserId;
-    DBConnect conn = null;
+    private JFXButton deleteReview;
 
-    public ReviewModel() {
-        conn = new ReviewModel();
+    public JFXButton getDeleteReview() {
+        return deleteReview;
+    }
+
+    public void setDeleteReview(JFXButton deleteReview) {
+        this.deleteReview = deleteReview;
     }
 
     public String getBookReview() {
@@ -55,12 +60,11 @@ public class ReviewModel extends DBConnect {
 
     public Boolean addReview(int bookId, int userId, String bookReview) {
         String state = "Insert INTO snaik_reviews(book_id,user_id, review) Values(?,?,?);";
-        try (PreparedStatement sql = conn.getConnection().prepareStatement(state)) {
+        try (PreparedStatement sql = connection.prepareStatement(state)) {
             sql.setInt(1, bookId);
             sql.setInt(2, userId);
             sql.setString(3, bookReview);
             sql.executeUpdate();
-            conn.getConnection().close();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -92,12 +96,10 @@ public class ReviewModel extends DBConnect {
 
     public Boolean deleteReview(int reviewId) {
         String state = "Delete from snaik_reviews where review_id=?;";
-        try (PreparedStatement sql = conn.getConnection().prepareStatement(state)) {
+        try (PreparedStatement sql = connection.prepareStatement(state)) {
             sql.setInt(1, reviewId);
             sql.executeUpdate();
-            conn.getConnection().close();
             return true;
-
         } catch (SQLException e) {
             e.printStackTrace();
         }

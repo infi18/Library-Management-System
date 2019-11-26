@@ -6,17 +6,17 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" style="-fx-background-image: url(&quot;imgs/background2.jpg&quot;);" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LandingPageController">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" style="-fx-background-image: url(&quot;imgs/img7.jpg&quot;);" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LandingPageController">
    <children>
-      <Pane layoutX="153.0" layoutY="38.0" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-image: url(&quot;imgs/img1.jpg&quot;); -fx-background-color: #ffffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane prefHeight="800.0" prefWidth="1200.0" style="-fx-background-image: url(&quot;imgs/img7.jpg&quot;); -fx-background-color: #ffffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <JFXButton fx:id="user_login" buttonType="RAISED" layoutX="195.0" layoutY="360.0" onAction="#user_login" prefHeight="116.0" prefWidth="270.0" style="-fx-background-color: #09ba15;" text="User Login ">
                <font>
                   <Font name="Times New Roman" size="25.0" />
                </font></JFXButton>
-            <Label alignment="CENTER" layoutX="330.0" layoutY="6.0" prefHeight="116.0" prefWidth="541.0" text="Welcome to the LIBRARY !!" textFill="#0f9411">
+            <Label alignment="CENTER" layoutX="259.0" layoutY="107.0" prefHeight="116.0" prefWidth="721.0" text="Welcome to the LIBRARY !!" textFill="#6bb809">
                <font>
-                  <Font name="Bookman Old Style" size="32.0" />
+                  <Font name="Bookman Old Style Bold Italic" size="51.0" />
                </font>
             </Label>
             <JFXButton fx:id="admin_login" buttonType="RAISED" layoutX="736.0" layoutY="360.0" onAction="#admin_login" prefHeight="116.0" prefWidth="270.0" style="-fx-background-color: #09ba15;" text="Admin Login ">

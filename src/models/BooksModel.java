@@ -18,12 +18,6 @@ public class BooksModel extends DBConnect {
     private int bookQuantity;
     private JFXButton bookDetails;
 
-    DBConnect conn = null;
-
-    public BooksModel() {
-        conn = new DBConnect();
-    }
-
     public JFXButton getBookDetails() {
         return bookDetails;
     }
@@ -84,7 +78,7 @@ public class BooksModel extends DBConnect {
     public List<BooksModel> getAllBooks() {
 
         String query = "SELECT * FROM snaik_books;";
-        try (PreparedStatement stmt = conn.getConnection().prepareStatement(query)) {
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
             List<BooksModel> BooksModelList = new ArrayList<>();
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -105,15 +99,13 @@ public class BooksModel extends DBConnect {
     }
 
 
-    public List<BooksModel> searchBooks(String searchParameter) {
+    public BooksModel getExistingBook(String isbn) {
 
-        String query = "SELECT * FROM snaik_books WHERE  book_title=? or book_author=?;";
-        try (PreparedStatement stmt = conn.getConnection().prepareStatement(query)) {
-            stmt.setString(1, searchParameter);
-            stmt.setString(2, searchParameter);
-            List<BooksModel> BooksModelList = new ArrayList<>();
+        String query = "SELECT * FROM snaik_books WHERE  book_isbn=?;";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, isbn);
             ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
+            if (rs.next()) {
                 BooksModel books = new BooksModel();
                 books.setBookId(rs.getInt("book_id"));
                 books.setBookAuthor(rs.getString("book_author"));
@@ -121,26 +113,46 @@ public class BooksModel extends DBConnect {
                 books.setBookISBN(rs.getString("book_isbn"));
                 books.setBookYear(rs.getInt("book_year"));
                 books.setBookQuantity(rs.getInt("book_quantity"));
-                BooksModelList.add(books);
+                return books;
             }
-            return BooksModelList;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return new ArrayList<>();
+        return null;
+    }
+
+    public BooksModel getBookForId(int bookId) {
+
+        String query = "SELECT * FROM snaik_books WHERE  book_id=?;";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, bookId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                BooksModel books = new BooksModel();
+                books.setBookId(rs.getInt("book_id"));
+                books.setBookAuthor(rs.getString("book_author"));
+                books.setBookTitle(rs.getString("book_title"));
+                books.setBookISBN(rs.getString("book_isbn"));
+                books.setBookYear(rs.getInt("book_year"));
+                books.setBookQuantity(rs.getInt("book_quantity"));
+                return books;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 
     public Boolean addBook(String bookTitle, String author, String ISBN, int bookYear, int bookQuantity) {
         String state = "Insert INTO snaik_books(book_title,book_author,book_isbn,book_year,book_quantity) Values(?,?,?,?,?);";
-        try (PreparedStatement sql = conn.getConnection().prepareStatement(state)) {
+        try (PreparedStatement sql = connection.prepareStatement(state)) {
             sql.setString(1, bookTitle);
             sql.setString(2, author);
             sql.setString(3, ISBN);
             sql.setInt(4, bookYear);
             sql.setInt(5, bookQuantity);
             sql.executeUpdate();
-            conn.getConnection().close();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -150,11 +162,10 @@ public class BooksModel extends DBConnect {
 
 
     public Boolean deleteBook(int bookId) {
-        String state = "Delete from snaik_books where id=?;";
-        try (PreparedStatement sql = conn.getConnection().prepareStatement(state)) {
+        String state = "Delete from snaik_books where book_id=?;";
+        try (PreparedStatement sql = connection.prepareStatement(state)) {
             sql.setInt(1, bookId);
             sql.executeUpdate();
-            conn.getConnection().close();
             return true;
 
         } catch (SQLException e) {
@@ -166,7 +177,7 @@ public class BooksModel extends DBConnect {
 
     public Boolean updateBook(int bookId, String bookTitle, String author, String ISBN, int bookYear, int bookQuantity) {
         String state = "UPDATE snaik_books SET book_title=?,book_author=?,book_isbn=?,book_year=?,book_quantity=? WHERE book_id=?; ";
-        try (PreparedStatement sql = conn.getConnection().prepareStatement(state)) {
+        try (PreparedStatement sql = connection.prepareStatement(state)) {
             sql.setString(1, bookTitle);
             sql.setString(2, author);
             sql.setString(3, ISBN);
@@ -174,7 +185,19 @@ public class BooksModel extends DBConnect {
             sql.setInt(5, bookQuantity);
             sql.setInt(6, bookId);
             sql.executeUpdate();
-            conn.getConnection().close();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public Boolean updateBookQuantity(int bookId, int quantity) {
+        String state = "UPDATE snaik_books SET book_quantity=? WHERE book_id=?; ";
+        try (PreparedStatement sql = connection.prepareStatement(state)) {
+            sql.setInt(1, quantity);
+            sql.setInt(2, bookId);
+            sql.executeUpdate();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();

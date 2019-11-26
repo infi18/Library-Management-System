@@ -114,6 +114,7 @@ public class UserDetailsController implements Initializable, ControlledScreen {
     }
 
     public void deleteUser() {
+        this.lblError.setText("");
         Boolean result = userModel.deleteUser(userId);
         if (!result) {
             this.lblError.setText("There is an error please try again later");
