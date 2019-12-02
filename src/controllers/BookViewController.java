@@ -22,7 +22,18 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+/**
+ * The BookView Controller Controls the book view
+ * displays all the books to user/admin along with other functionality
+ *implements Initializable, ControlledScreen
+ */
+
 public class BookViewController implements Initializable, ControlledScreen {
+
+    /**
+     * all the required fields initialized
+     * all the required models  for data retrival are called
+     */
 
     static int userId;
     private BooksModel booksModel;
@@ -80,6 +91,11 @@ public class BookViewController implements Initializable, ControlledScreen {
     }
 
     @Override
+
+    /**
+     * The initializable function
+     * screen with book details is initialized
+     */
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("[LOG] Inside Books View Controller");
         initTable();
@@ -89,10 +105,19 @@ public class BookViewController implements Initializable, ControlledScreen {
         }
     }
 
+    /**
+     * The initTable Function
+     * book table is set with values
+     */
     public void initTable() {
         initColumns();
         loadBooks();
     }
+
+    /**
+     * The initColumns function
+     * here columns are initialized with appropriate book values
+     */
 
     public void initColumns() {
         bookId.setCellValueFactory(new PropertyValueFactory<>("bookId"));
@@ -103,6 +128,12 @@ public class BookViewController implements Initializable, ControlledScreen {
         bookQuantity.setCellValueFactory(new PropertyValueFactory<>("bookQuantity"));
         bookDetails.setCellValueFactory(new PropertyValueFactory<>("bookDetails"));
     }
+
+
+    /**
+     * The loadBooks fucntion
+     * here book values retirived using BookModel
+     */
 
     public void loadBooks() {
         ObservableList<BooksModel> observableBooksList = FXCollections.observableArrayList();
@@ -124,6 +155,11 @@ public class BookViewController implements Initializable, ControlledScreen {
         booksView.setItems(observableBooksList);
     }
 
+    /**
+     *The createButton Fucntion
+     * @param name The name string is passed for button
+     * @return button that onclick takes to page with the specific book detail
+     */
     public JFXButton createButton(String name) {
         JFXButton detailsButton = new JFXButton(name);
         detailsButton.setButtonType(JFXButton.ButtonType.RAISED);
@@ -132,6 +168,10 @@ public class BookViewController implements Initializable, ControlledScreen {
         return detailsButton;
     }
 
+    /**
+     * The addBook fucntion
+     * takes user/admin to screen where new book can be added to the system
+     */
     public void addBook() {
         BookDetailsController.setUserId(userId);
         BookDetailsController.setNewBook(true);
@@ -140,6 +180,10 @@ public class BookViewController implements Initializable, ControlledScreen {
         controller.setScreen(LibrarySystem.screen8ID);
     }
 
+    /**
+     * the searchBook function
+     * user/admin can search for a particular book with this button
+     */
     public void searchBook() {
         this.lblError.setText("");
         if (this.searchField.textProperty().isEmpty().get()) {
@@ -176,6 +220,10 @@ public class BookViewController implements Initializable, ControlledScreen {
 
     }
 
+    /**
+     * The logout fucntion
+     * logs user/admin out of the system
+     */
     public void logout() {
         clear();
         System.out.println("Logging Out");
@@ -184,6 +232,11 @@ public class BookViewController implements Initializable, ControlledScreen {
 
     }
 
+    /**
+     * The viewUser fucntion
+     * Admin can view all users by clicking on this button
+     * only visible to the admin
+     */
     public void viewUsers() {
         searchField.clear();
         UserViewController.setUserId(userId);
@@ -191,6 +244,11 @@ public class BookViewController implements Initializable, ControlledScreen {
         controller.unloadScreen(LibrarySystem.screen7ID);
         controller.setScreen(LibrarySystem.screen5ID);
     }
+
+    /**
+     * The clear function
+     * clears all fields
+     */
 
     public void clear() {
 

@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 public class LibrarySystem extends Application {
 
     /**
-     *
+     * views are assigned to desired screens
      */
     public static String screen1ID = "Landing Page";
     public static String screen1File = "/views/LandingPage.fxml";

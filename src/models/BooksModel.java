@@ -9,7 +9,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Siddhi Naik
+ * UserModel retives data from the snaik_books table
+ * the data is used to add, view, search, modify, delete books
+  */
 public class BooksModel extends DBConnect {
+
+    /**
+     * all the required fields, buttons have been defined below
+     */
     private int bookId;
     private String bookTitle;
     private String bookAuthor;
@@ -75,6 +84,11 @@ public class BooksModel extends DBConnect {
     }
 
 
+    /**
+     * The getAllBooks function retrieves all the books present in database
+      * @return
+     */
+
     public List<BooksModel> getAllBooks() {
 
         String query = "SELECT * FROM snaik_books;";
@@ -99,6 +113,13 @@ public class BooksModel extends DBConnect {
     }
 
 
+    /**
+     * The getExistingBook function fetches book with specified isbn
+     * it basically checks for the book ig it is present in the database
+     * @param isbn
+     * @return
+     */
+
     public BooksModel getExistingBook(String isbn) {
 
         String query = "SELECT * FROM snaik_books WHERE  book_isbn=?;";
@@ -121,6 +142,12 @@ public class BooksModel extends DBConnect {
         return null;
     }
 
+
+    /**
+     * The getBookForId fetches book with specified book_id from the database
+     * @param bookId
+     * @return
+     */
     public BooksModel getBookForId(int bookId) {
 
         String query = "SELECT * FROM snaik_books WHERE  book_id=?;";
@@ -143,7 +170,12 @@ public class BooksModel extends DBConnect {
         return null;
     }
 
-
+    /**
+     * The addBook function
+     * Adds Books into the database
+     * @return boolean value
+     * if user is added successfully it returns true else false
+     */
     public Boolean addBook(String bookTitle, String author, String ISBN, int bookYear, int bookQuantity) {
         String state = "Insert INTO snaik_books(book_title,book_author,book_isbn,book_year,book_quantity) Values(?,?,?,?,?);";
         try (PreparedStatement sql = connection.prepareStatement(state)) {
@@ -160,7 +192,11 @@ public class BooksModel extends DBConnect {
         return false;
     }
 
-
+    /**
+     * The deleteBook function deletes book with specified book_id
+     * @param bookId
+     * @return
+     */
     public Boolean deleteBook(int bookId) {
         String state = "Delete from snaik_books where book_id=?;";
         try (PreparedStatement sql = connection.prepareStatement(state)) {
@@ -175,6 +211,16 @@ public class BooksModel extends DBConnect {
     }
 
 
+    /**
+     * The updateBook function updates book if any of the below specified parameter is modified
+     * @param bookId
+     * @param bookTitle
+     * @param author
+     * @param ISBN
+     * @param bookYear
+     * @param bookQuantity
+     * @return
+     */
     public Boolean updateBook(int bookId, String bookTitle, String author, String ISBN, int bookYear, int bookQuantity) {
         String state = "UPDATE snaik_books SET book_title=?,book_author=?,book_isbn=?,book_year=?,book_quantity=? WHERE book_id=?; ";
         try (PreparedStatement sql = connection.prepareStatement(state)) {
@@ -192,6 +238,12 @@ public class BooksModel extends DBConnect {
         return false;
     }
 
+    /**
+     * The updateBookQuantity updates the quantity of books present in database for the following parameters
+     * @param bookId
+     * @param quantity
+     * @return
+     */
     public Boolean updateBookQuantity(int bookId, int quantity) {
         String state = "UPDATE snaik_books SET book_quantity=? WHERE book_id=?; ";
         try (PreparedStatement sql = connection.prepareStatement(state)) {

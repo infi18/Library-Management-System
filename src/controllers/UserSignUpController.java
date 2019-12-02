@@ -1,4 +1,10 @@
 package controllers;
+/**
+ * @author : Siddhi Naik
+ * UserSignUpController
+ * The user signup controllers are defined here
+ *
+ */
 
 import Dao.AlertDao;
 import application.LibrarySystem;
@@ -12,6 +18,14 @@ import models.UserModel;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * All required fields are defined
+ * Extends ControlledScreen, Framework
+ * Acts like a Controller in the mvc framework
+ */
 
 public class UserSignUpController implements Initializable, ControlledScreen {
 
@@ -49,6 +63,11 @@ public class UserSignUpController implements Initializable, ControlledScreen {
         controller = screenPage;
     }
 
+    /**
+     *  Loads SignUp page initals
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("Sign Up Page Intialized.");
@@ -61,8 +80,14 @@ public class UserSignUpController implements Initializable, ControlledScreen {
         this.lblError.setText("");
     }
 
+    /**
+     * The sigup function
+     * The user can have credentials to access sysytem by signing up
+     * the signup fucntion checks for various validations before adding user to the system
+     */
     public void signUp() {
-        if (!validate()) {
+        if (!validate() || !validateEmail())    //calls validation function
+        {
             return;
         }
 
@@ -82,7 +107,16 @@ public class UserSignUpController implements Initializable, ControlledScreen {
         controller.setScreen(LibrarySystem.screen2ID);
     }
 
+    /**
+     * The validate function
+     * validate function checks for validations
+     * @returns boolean value
+     */
+
     public Boolean validate() {
+        Pattern p = Pattern.compile("[a-zA-Z0-9][a-zA-Z0-9._]*@[a-zA-Z0-9]+([.][a-zA-Z]+)+");
+        Matcher m = p.matcher(emailId.getText());
+
         if (this.firstName.textProperty().isNotEmpty().not()
                 .or(this.lastName.textProperty().isNotEmpty().not())
                 .or(this.emailId.textProperty().isNotEmpty().not())
@@ -97,13 +131,44 @@ public class UserSignUpController implements Initializable, ControlledScreen {
             this.lblError.setText("Password and Confirm Password do not match");
             return false;
         }
-        return true;
+
+       return true;
+
     }
 
+    /**
+     * The validateEmail function
+     * Checks for email validation
+     * @return boolean value
+     */
+
+    public Boolean validateEmail(){
+        Pattern p = Pattern.compile("[a-zA-Z0-9][a-zA-Z0-9._]*@[a-zA-Z0-9]+([.][a-zA-Z]+)+");
+        Matcher m = p.matcher(emailId.getText());
+      if( m.find() && m.group().equals(emailId.getText()))
+        {
+            return true;
+        }
+      else {
+          this.lblError.setText("Enter a valid email !!");
+          return false;
+      }
+
+    }
+
+    /**
+     * The login function
+     * clears all fields loads login screen
+     */
     public void goLogin() {
         clear();
         controller.setScreen(LibrarySystem.screen2ID);
     }
+
+    /**
+     * The clear function
+     * clears all fields
+     */
 
     public void clear() {
         this.firstName.clear();

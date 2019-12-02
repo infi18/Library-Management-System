@@ -1,4 +1,9 @@
 package controllers;
+/**
+ *
+ * @author Siddhi Naik
+ * @since 2019-11-16
+ */
 
 import application.LibrarySystem;
 import com.jfoenix.controls.JFXPasswordField;
@@ -12,7 +17,18 @@ import models.UserModel;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * UserLoginController controls user login screen as per the mvc framework
+ * The login screen is displayed to the user with option to signup to the system
+ *
+ *
+ */
+
 public class UserLoginController implements Initializable, ControlledScreen {
+    /**
+     * all the required fields are initialized
+     * all the required  models for retriving data are called
+     */
 
     @FXML
     private JFXTextField txtUsername;
@@ -29,7 +45,7 @@ public class UserLoginController implements Initializable, ControlledScreen {
         model = new UserModel();
     }
 
-    ScreensController controller;
+    ScreensController controller; //screens controller
 
     @Override
     public void setScreenParent(ScreensController screenPage) {
@@ -37,6 +53,10 @@ public class UserLoginController implements Initializable, ControlledScreen {
     }
 
     @Override
+    /**
+     * The initialize function
+     * initializes login screen
+     */
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("Inside the Login Controller for User");
         this.txtUsername.setLabelFloat(true);
@@ -44,6 +64,12 @@ public class UserLoginController implements Initializable, ControlledScreen {
         this.lblError.setText("");
     }
 
+    /**
+     * the loginuser function
+     * checks credentials for login
+     * it checks if there is empty space
+     * or do the credentials match
+     */
     public void loginUser() {
         String username = this.txtUsername.getText();
         String password = this.txtPassword.getText();
@@ -89,17 +115,29 @@ public class UserLoginController implements Initializable, ControlledScreen {
         }
     }
 
-
+    /**
+     * The goHome function
+     * if user succeeds in logging in the displays next screen
+     */
     public void goHome() {
         clear();
         controller.setScreen(LibrarySystem.screen1ID);
     }
 
+    /**
+     * the userSignup function
+     * if user clicks signup button
+     * take user to sign up page
+     */
     public void userSignUp() {
         clear();
         controller.setScreen(LibrarySystem.screen3ID);
     }
 
+    /**
+     * the clear function
+     * clear up all fields
+     */
     public void clear() {
         this.txtUsername.clear();
         this.txtPassword.clear();

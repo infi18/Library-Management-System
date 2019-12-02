@@ -1,9 +1,17 @@
 package Dao;
+/**
+ * @author : Siddhi Naik
+ *
+ * @Since: 2019-11-19
+ */
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * connections made to database using sql
+ */
 public class DBConnect  {
 
 	protected Connection connection;
@@ -11,8 +19,8 @@ public class DBConnect  {
 		return connection;
 	}
 
+
 	private static String url = "jdbc:mysql://www.papademas.net:3307/510fp";
-	//private static String url = "jdbc:mysql://localhost:3306/db";
 	private static String username = "fp510";
 	private static String password = "510";
 
