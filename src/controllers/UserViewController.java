@@ -1,5 +1,10 @@
 package controllers;
-
+/**
+ *
+ * @author Siddhi Naik
+ * @since 2019-11-16
+ *
+ */
 import application.LibrarySystem;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
@@ -22,7 +27,18 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+/**
+ * the controller that controls UserView
+ * this is the screen where admin can see detail list of all the users
+ * implements initializable, ControlledScreen
+ */
+
 public class UserViewController implements Initializable, ControlledScreen {
+
+    /**
+     * Fields have been defiened below
+     * Models that are required for retriving values have been called
+     */
     static int userId;
     ScreensController controller;
     private UserModel userModel;
@@ -75,11 +91,17 @@ public class UserViewController implements Initializable, ControlledScreen {
         initTable();
     }
 
+    /**
+     *The initTable function initializes table with user details
+     */
     public void initTable() {
         initColumns();
         loadUsers();
     }
 
+    /**
+     *The initColumns function sets column values
+     */
     public void initColumns() {
         firstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
@@ -89,6 +111,9 @@ public class UserViewController implements Initializable, ControlledScreen {
         details.setCellValueFactory(new PropertyValueFactory<>("details"));
     }
 
+    /**
+     * The loaduser function loads users into the table
+     */
     public void loadUsers() {
         ObservableList<UserModel> observableUsersList = FXCollections.observableArrayList();
         List<UserModel> usersList = userModel.getAllUsers();
@@ -109,6 +134,12 @@ public class UserViewController implements Initializable, ControlledScreen {
         userView.setItems(observableUsersList);
     }
 
+    /**
+     * The CreateButton function
+     * @param name
+     * @returns detailsButton for each user in the table
+     * when clicked depicts that user's details whose details have been selected
+     */
     public JFXButton createButton(String name) {
         JFXButton detailsButton = new JFXButton(name);
         detailsButton.setButtonType(JFXButton.ButtonType.RAISED);
@@ -117,6 +148,11 @@ public class UserViewController implements Initializable, ControlledScreen {
         return detailsButton;
     }
 
+
+    /**
+     * The add user function lets admin add new user to the system
+     * admin can load page to add user by clicking add user
+     */
     public void addUser() {
         UserDetailsController.setUserId(userId);
         UserDetailsController.setNewUser(true);
@@ -124,6 +160,10 @@ public class UserViewController implements Initializable, ControlledScreen {
         controller.unloadScreen(LibrarySystem.screen5ID);
         controller.setScreen(LibrarySystem.screen6ID);
     }
+
+    /**
+     * The Search function helps find a particular user
+     */
 
     public void searchUser() {
         this.lblError.setText("");
@@ -158,6 +198,9 @@ public class UserViewController implements Initializable, ControlledScreen {
         userView.setItems(observableUsersList);
     }
 
+    /**
+     *The  goback takes user back to previous page
+     */
     public void goBack() {
         clear();
         System.out.println("Back to Books View from Users");
@@ -166,12 +209,19 @@ public class UserViewController implements Initializable, ControlledScreen {
         controller.setScreen(LibrarySystem.screen7ID);
     }
 
+    /**
+     * The logout function logs admin out of the system
+     */
     public void logout() {
         clear();
         System.out.println("Logging Out");
         controller.unloadScreen(LibrarySystem.screen5ID);
         controller.setScreen(LibrarySystem.screen1ID);
     }
+
+    /**
+     *The clear function clears all fields
+     */
 
     public void clear() {
         userId = 0;

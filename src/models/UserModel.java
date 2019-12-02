@@ -12,8 +12,15 @@ import java.util.List;
 
 /**
  * @author Siddhi Naik
+ * UserModel retives data from the snaik_users table
+ * the data is used for login, signup
+ * To add, modify, delete user
  */
 public class UserModel extends DBConnect {
+
+    /**
+     * all the required fields, buttons have been defined below
+     */
 
     private int id;
     private String firstName;
@@ -23,6 +30,8 @@ public class UserModel extends DBConnect {
     private String password;
     private Boolean admin;
     private JFXButton details;
+
+
 
     public JFXButton getDetails() {
         return details;
@@ -89,6 +98,7 @@ public class UserModel extends DBConnect {
     }
 
     /**
+     * The getCredentials fucntion retrieves user with sepcified emailId, password
      * @param username
      * @param password
      * @return
@@ -118,7 +128,8 @@ public class UserModel extends DBConnect {
     }
 
     /**
-     * @return
+     * The getUser function retrieves user with specified email id
+     * @returns null
      */
     public UserModel getUser(String id) {
 
@@ -144,7 +155,8 @@ public class UserModel extends DBConnect {
     }
 
     /**
-     * @return
+     * The getUserForId function retrives the user with the particular mentioned id
+     * @return user The User with the required Id is returned to the model from the database
      */
     public UserModel getUserForId(int id) {
 
@@ -170,7 +182,8 @@ public class UserModel extends DBConnect {
     }
 
     /**
-     * @return
+     * The getAllUsers function retrieves all user from the database
+     * @returns list of users
      */
     public List<UserModel> getAllUsers() {
         String query = "SELECT * FROM snaik_users;";
@@ -196,7 +209,10 @@ public class UserModel extends DBConnect {
     }
 
     /**
-     * @return
+     * The addUser function
+     * Adds User into the database
+     * @return boolean value
+     * if user is added successfully it returns true else false
      */
     public Boolean addUser(String firstName, String lastName, String emailId, String phone, String password, Boolean isAdmin) {
         String state = "Insert INTO snaik_users(first_name,last_name,email,password,phone,is_admin) Values(?,?,?,?,?,?);";
@@ -214,6 +230,18 @@ public class UserModel extends DBConnect {
         }
         return false;
     }
+
+    /**
+     * The updateUser function updates the user if any of the following parameters is updated
+     * @param userId
+     * @param firstName
+     * @param lastName
+     * @param emailId
+     * @param phone
+     * @param password
+     * @param isAdmin
+     * @return boolean true if updation successful else boolean false
+     */
 
     public Boolean updateUser(Integer userId, String firstName, String lastName, String emailId, String phone, String password, Boolean isAdmin) {
         String state = "UPDATE snaik_users SET first_name=?,last_name=?,email=?,password=?,phone=?,is_admin=? WHERE user_id=?;";
@@ -233,6 +261,11 @@ public class UserModel extends DBConnect {
         return false;
     }
 
+    /**
+     * The deleteuser Function
+     * @param userId The user with selected userId is deleted
+     * @return boolean true if deletion successful else return false
+     */
     public Boolean deleteUser(int userId) {
         String state = "Delete from snaik_users where user_id=?;";
         try (PreparedStatement sql = connection.prepareStatement(state)) {

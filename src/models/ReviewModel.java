@@ -9,7 +9,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Siddhi Naik
+ * ReviewModel retives data from the snaik_review table
+ * the data is used for adding or deleting the review
+ *
+ */
+
+
 public class ReviewModel extends DBConnect {
+
+
+    /**
+     * all teh required fields, buttons have been defined below
+     */
 
     private int Review_id;
     private String BookReview;
@@ -58,6 +71,14 @@ public class ReviewModel extends DBConnect {
     }
 
 
+
+    /**
+     * The addReview function
+     * Adds Review into the database
+     * @return boolean value
+     * if review is added successfully it returns true else false
+     */
+
     public Boolean addReview(int bookId, int userId, String bookReview) {
         String state = "Insert INTO snaik_reviews(book_id,user_id, review) Values(?,?,?);";
         try (PreparedStatement sql = connection.prepareStatement(state)) {
@@ -71,6 +92,12 @@ public class ReviewModel extends DBConnect {
         }
         return false;
     }
+
+    /**
+     * The getReviewsForBook function fetches reviews for the selected book_id
+     * @param bookId
+     * @return boolean value
+     */
 
     public List<ReviewModel> getReviewsForBook(int bookId) {
 
@@ -93,6 +120,12 @@ public class ReviewModel extends DBConnect {
         }
         return new ArrayList<>();
     }
+
+    /**
+     * The deleteReview Function
+     * @param reviewId The review with selected reviewId is deleted
+     * @return boolean true if deletion successful else return false
+     */
 
     public Boolean deleteReview(int reviewId) {
         String state = "Delete from snaik_reviews where review_id=?;";

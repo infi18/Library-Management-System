@@ -12,7 +12,19 @@ import models.UserModel;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * AdminLoginController acts as a Controller for the admin login view
+ * Controls the admin's login screen
+ * Implements initializabl, ControlledScreen
+ *
+  */
+
 public class AdminLoginController implements Initializable, ControlledScreen {
+
+    /**
+     * all required fields are initialized
+     * all the required models for retriving data are called
+     */
     @FXML
     private JFXTextField adminUsername;
 
@@ -36,6 +48,10 @@ public class AdminLoginController implements Initializable, ControlledScreen {
     }
 
     @Override
+    /**
+     * The initialize function
+     * loads admin login screen
+     */
     public void initialize(URL location, ResourceBundle resources) {
 
         System.out.println("Inside the Login Controller for Admin");
@@ -43,6 +59,13 @@ public class AdminLoginController implements Initializable, ControlledScreen {
         this.adminPassword.setLabelFloat(true);
         this.lblError.setText("");
     }
+
+    /**
+     * The loginAdmin function
+     * below function checks for credentials entered
+     * if the values match or not
+     * if the credentials are present in database or not
+     */
 
     public void loginAdmin() {
         String username = this.adminUsername.getText();
@@ -86,12 +109,22 @@ public class AdminLoginController implements Initializable, ControlledScreen {
         }
     }
 
+    /**
+     * The clear function
+     *  clears all the  fields
+     */
+
     public void clear() {
         this.adminPassword.clear();
         this.adminUsername.clear();
         this.lblError.setText("");
     }
 
+
+    /**
+     * The goHome function
+     * if login is successful loads home screen
+     */
     public void goHome() {
         clear();
         controller.setScreen(LibrarySystem.screen1ID);

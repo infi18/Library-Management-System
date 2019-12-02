@@ -24,7 +24,19 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * BooksDetailsController acts as a Controller of the mvc framework
+ * Controls the Book's Detail Screen
+ * User/Admin can view all the books
+ * Implements initializable, ControlledScreen
+ */
+
 public class BookDetailsController implements Initializable, ControlledScreen {
+
+    /**
+     * all the required fields are initialized
+     * all the required models for data retrival are called
+     */
 
     static int userId;
     static int bookId;
@@ -113,6 +125,11 @@ public class BookDetailsController implements Initializable, ControlledScreen {
     }
 
     @Override
+
+    /**
+     * The initializefunction
+     * initializing the page and loading all the content
+     */
     public void initialize(URL location, ResourceBundle resources) {
 
         System.out.println("Inside book details controller");
@@ -123,17 +140,17 @@ public class BookDetailsController implements Initializable, ControlledScreen {
         this.txtReview.setLabelFloat(true);
         setDetailsForUserId();
         if (!newBook) {
-            this.btnAdd.setDisable(true);
+            this.btnAdd.setDisable(true);         //if book is not new add button disabled
             this.btnReview.setVisible(true);
             this.txtReview.setVisible(true);
             this.reviewList.setVisible(true);
             this.setDetailsForId();
             initReviewTable();
         } else {
-            this.btnCheckin.setVisible(false);
+            this.btnCheckin.setVisible(false);     //Checkin button initially disabled
             this.btnCheckout.setVisible(false);
-            this.btnDelete.setDisable(true);
-            this.btnModify.setDisable(true);
+            this.btnDelete.setDisable(true);    //delete button disabled for the user
+            this.btnModify.setDisable(true);    //modify button disabled for the user
             this.btnReview.setVisible(false);
             this.txtReview.setVisible(false);
             this.reviewList.setVisible(false);
@@ -145,6 +162,12 @@ public class BookDetailsController implements Initializable, ControlledScreen {
         }
 
     }
+
+    /**
+     * The setDetailsForUserId function
+     * below is functionality of admin on bookdetails page
+     * Admin cannot checkin, checkout book hence these functions are disabled to the admin
+     */
 
     public void setDetailsForUserId() {
         UserModel model = userModel.getUserForId(userId);
@@ -174,6 +197,12 @@ public class BookDetailsController implements Initializable, ControlledScreen {
         }
     }
 
+    /**
+     *The setDetailsForId function
+     * Book details cannot be edited by user, user can only add book
+     * if user succeeds in book checkout checkin function becomes available
+     */
+
     public void setDetailsForId() {
         BooksModel book = booksModel.getBookForId(bookId);
         title.setText(book.getBookTitle());
@@ -191,6 +220,10 @@ public class BookDetailsController implements Initializable, ControlledScreen {
         }
     }
 
+    /**
+     * The checkout function
+     * checkout function defined
+     */
     public void checkout() {
         this.lblErrorCheckout.setText("");
         Integer currentQuantity = Integer.parseInt(this.quantity.getText());
@@ -214,6 +247,10 @@ public class BookDetailsController implements Initializable, ControlledScreen {
         this.btnCheckin.setDisable(false);
     }
 
+    /**
+     * The checkin function
+     * checkin fucntion defined
+     */
     public void checkin() {
         this.lblErrorCheckout.setText("");
         Integer currentQuantity = Integer.parseInt(this.quantity.getText());
@@ -233,6 +270,11 @@ public class BookDetailsController implements Initializable, ControlledScreen {
         this.btnCheckin.setDisable(true);
     }
 
+    /**
+     * The delete function
+     * admin can delete book using this function
+     *
+     */
     public void delete() {
         this.lblError.setText("");
         Boolean result = booksModel.deleteBook(bookId);
@@ -248,6 +290,11 @@ public class BookDetailsController implements Initializable, ControlledScreen {
         controller.setScreen(LibrarySystem.screen7ID);
     }
 
+    /**
+     * The update function
+     * update function
+     * only admin can perform this
+     */
     public void update() {
         this.lblError.setText("");
         if (!validate()) {
@@ -264,6 +311,11 @@ public class BookDetailsController implements Initializable, ControlledScreen {
         AlertDao.Display("Modify Book", "Book successfully modified");
     }
 
+
+    /**
+     * The addReview function
+     * adds review to the database
+     */
     public void addReview() {
         this.lblErrorReview.setText("");
         if (this.txtReview.textProperty().isEmpty().get()) {
@@ -279,6 +331,11 @@ public class BookDetailsController implements Initializable, ControlledScreen {
         loadReviews();
     }
 
+    /**
+     * The removeReview function
+     * only admin can use this function
+     * @param reviewId The reviewId is used for the same
+     */
     public void removeReview(int reviewId) {
         this.lblErrorReview.setText("");
         Boolean result = reviewModel.deleteReview(reviewId);
@@ -289,16 +346,27 @@ public class BookDetailsController implements Initializable, ControlledScreen {
         loadReviews();
     }
 
+    /**
+     *The initReviewTable function initializes table with review  details
+     */
+
     public void initReviewTable() {
         initReviewColumns();
         loadReviews();
     }
 
+    /**
+     *The initReview function initializes column with review details
+     */
     public void initReviewColumns() {
         this.review.setCellValueFactory(new PropertyValueFactory<>("BookReview"));
         this.deleteReview.setCellValueFactory(new PropertyValueFactory<>("deleteReview"));
     }
 
+
+    /**
+     *The loadReview function loads table with reviews
+     */
     public void loadReviews() {
         ObservableList<ReviewModel> reviewModelObservableList = FXCollections.observableArrayList();
         List<ReviewModel> reviewModelList = reviewModel.getReviewsForBook(bookId);
@@ -317,6 +385,11 @@ public class BookDetailsController implements Initializable, ControlledScreen {
         reviewList.setItems(reviewModelObservableList);
     }
 
+    /**
+     *
+     * The addBook function
+     * both user and admin can add books using this function
+     */
     public void addBook() {
         this.lblError.setText("");
         if (!validate()) {
@@ -341,6 +414,12 @@ public class BookDetailsController implements Initializable, ControlledScreen {
         controller.setScreen(LibrarySystem.screen7ID);
     }
 
+    /**
+     * The validate function
+     * checks for validation
+     */
+
+
     public Boolean validate() {
         if (this.title.textProperty().isEmpty()
                 .or(this.author.textProperty().isEmpty())
@@ -362,6 +441,11 @@ public class BookDetailsController implements Initializable, ControlledScreen {
         return true;
     }
 
+    /**
+     * The logout function
+     * logs user/admin out of the system
+     */
+
     public void logout() {
         clear();
         System.out.println("Logging Out");
@@ -370,6 +454,9 @@ public class BookDetailsController implements Initializable, ControlledScreen {
         controller.setScreen(LibrarySystem.screen1ID);
     }
 
+    /**
+     * The goback  function takes user back to previous page
+     */
     public void goBack() {
         clear();
         System.out.println("Back to Books View from Book Details");
@@ -378,6 +465,10 @@ public class BookDetailsController implements Initializable, ControlledScreen {
         controller.setScreen(LibrarySystem.screen7ID);
     }
 
+    /**
+     * the clear function
+     * clears all fields
+     */
     public void clear() {
         userId = 0;
         bookId = 0;

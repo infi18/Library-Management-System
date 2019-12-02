@@ -1,4 +1,9 @@
 package controllers;
+/**
+ *
+ * @author Siddhi Naik
+ * @since 2019-11-16
+ */
 
 import Dao.AlertDao;
 import application.LibrarySystem;
@@ -13,8 +18,21 @@ import models.UserModel;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+/**
+ * UserDetailsController acts as a Controller of the mvc framework
+ * It controls screen with all user's details that admin can modify/delete
+ * implements initializable, controlledScreen
+ */
 
 public class UserDetailsController implements Initializable, ControlledScreen {
+
+    /**
+     * all the required fields are initialized
+     * all the required models  for retriving data are called
+     */
+
     static int userId;
     static boolean newUser = false;
     ScreensController controller;
@@ -27,6 +45,7 @@ public class UserDetailsController implements Initializable, ControlledScreen {
     public static void setNewUser(boolean newUser) {
         UserDetailsController.newUser = newUser;
     }
+
 
     @FXML
     private JFXTextField firstName;
@@ -67,6 +86,10 @@ public class UserDetailsController implements Initializable, ControlledScreen {
     }
 
     @Override
+
+    /**
+     *The initialize function initializes the user details screen
+     */
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("[LOG] Inside User Details");
         firstName.setLabelFloat(true);
@@ -90,9 +113,13 @@ public class UserDetailsController implements Initializable, ControlledScreen {
         System.out.println("User ID inside user details " + userId);
     }
 
+    /**
+     *The adduser function
+     * admin can add user to the system using this function
+     */
     public void addUser() {
         this.lblError.setText("");
-        if (!validate()) {
+        if (!validate() || !validateEmail()) {
             return;
         }
         UserModel existingUser = userModel.getUser(this.email.getText());
@@ -113,6 +140,10 @@ public class UserDetailsController implements Initializable, ControlledScreen {
         controller.setScreen(LibrarySystem.screen5ID);
     }
 
+    /**
+     * The deleteuser function
+     * admin can delete user with this function
+     */
     public void deleteUser() {
         this.lblError.setText("");
         Boolean result = userModel.deleteUser(userId);
@@ -128,6 +159,10 @@ public class UserDetailsController implements Initializable, ControlledScreen {
         controller.setScreen(LibrarySystem.screen5ID);
     }
 
+    /**
+     * The modifyUser function
+     * admin can modify user details using this function
+     */
     public void modifyUser() {
         this.lblError.setText("");
         if (!validate()) {
@@ -141,6 +176,13 @@ public class UserDetailsController implements Initializable, ControlledScreen {
         System.out.println("User modify successful");
         AlertDao.Display("Modify User", "User successfully modified");
     }
+
+
+    /**
+     * The validate function
+     * validate function checks for validations
+     * @returns boolean value
+     */
 
     public Boolean validate() {
         if (this.firstName.textProperty().isEmpty()
@@ -156,6 +198,27 @@ public class UserDetailsController implements Initializable, ControlledScreen {
         return true;
     }
 
+    /**
+     * The validateEmail function
+     * Checks for email validation
+     * @return boolean value
+     */
+
+    public Boolean validateEmail() {
+        Pattern p = Pattern.compile("[a-zA-Z0-9][a-zA-Z0-9._]*@[a-zA-Z0-9]+([.][a-zA-Z]+)+");
+        Matcher m = p.matcher(email.getText());
+        if (m.find() && m.group().equals(email.getText())) {
+            return true;
+        } else {
+            this.lblError.setText("Enter a valid email !!");
+            return false;
+        }
+    }
+
+    /**The logout function
+     * logs the admin  out of the system
+     */
+
     public void logout() {
         clear();
         System.out.println("Logging Out");
@@ -165,6 +228,10 @@ public class UserDetailsController implements Initializable, ControlledScreen {
         controller.setScreen(LibrarySystem.screen1ID);
     }
 
+    /**
+     * The goBack function
+     * goback takes user back to previous page
+     */
     public void goBack() {
         clear();
         System.out.println("Back to Books View from Users");
@@ -173,6 +240,11 @@ public class UserDetailsController implements Initializable, ControlledScreen {
         controller.setScreen(LibrarySystem.screen5ID);
     }
 
+    /**
+     * The setDetailsForId  function
+     * sets the value of user after the addition/deletion/modification of details by the admin
+     * initials it loads the value of the selected particular user
+     */
     public void setDetailsForId() {
         UserModel user = userModel.getUserForId(userId);
         firstName.setText(user.getFirstName());
@@ -187,16 +259,31 @@ public class UserDetailsController implements Initializable, ControlledScreen {
         }
     }
 
+
+    /**
+     * The setAdmin function
+     * sets any user to admin if selected by current admin
+     */
+
     public void setAsAdmin() {
         isAdmin.setSelected(true);
         notAdmin.setSelected(false);
     }
+
+    /**
+     * The setAsUser function
+     * sets inserted user as a normal user
+     *
+     */
 
     public void setAsUser() {
         isAdmin.setSelected(false);
         notAdmin.setSelected(true);
     }
 
+    /**
+     * clears all fields
+     */
     public void clear() {
         userId = 0;
         newUser = false;
@@ -209,4 +296,6 @@ public class UserDetailsController implements Initializable, ControlledScreen {
         isAdmin.setSelected(false);
         notAdmin.setSelected(false);
     }
-}
+
+
+    }
